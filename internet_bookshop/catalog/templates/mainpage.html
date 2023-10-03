@@ -1,0 +1,16 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <title>title</title>
+  <meta charset="utf-8">
+</head>
+<body>
+<div>Hello</div>
+{% for b in books %}
+<ul>
+  <li><a href="{{ b.get_absolute_url }}">{{ b.title }}</a></li>
+</ul>
+{% endfor %}
+</body>
+</html>
