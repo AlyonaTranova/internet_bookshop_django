@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<main style="display: block; margin-left: auto; margin-right: auto; margin-top: 100px;
+margin-bottom: 100px">
+  <p style="text-transform: uppercase; color: #333; letter-spacing: 1.4px; font-weight: 500;">Авторизация</p>
+  <form method='post' style="margin-bottom: 20px;">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" style="justify-content: center; text-transform: uppercase; background-color: #1f2126;
+      color: #fff; letter-spacing: 0.8px; width: 30%;">логин
+    </button>
+  </form>
+  <p>Если Вы еще не зарегистрированы, вам <a class="ControlPanel-title" href="{% url 'registration' %}">сюда</a></p>
+</main>
+</body>
+</html>

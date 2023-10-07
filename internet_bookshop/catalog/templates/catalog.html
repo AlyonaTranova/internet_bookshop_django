@@ -6,11 +6,59 @@
 </head>
 <body>
 <!--{{ books }}-->
-<div>Books:</div>
+
+<div>Сортировка</div>
+<form method="get">
+
+  <button type="submit" name="sort" value="price">Цена по возрастанию</button>
+
+  <button type="submit" name="sort" value="-price">Цена по убыванию</button>
+
+  <button type="submit" name="sort" value="name">По имени</button>
+
+  <div>
+    <input type="number" name="start" class="form-filter-price">
+    <input type="number" name="end" class="form-filter-price">
+  </div>
+  <button type="submit" name="sort" value="price_filter" class="btn btn_square btn_dark btn_narrow filter-btn">
+    фильтровать
+  </button>
+</form>
+
+<h2>Books:</h2>
 {% for book in books %}
 <ul>
-  <li><a href="{{ book.get_absolute_url }}">{{ book.title }}</a></li>
+  <li style="font-size:22px"><a href="{{ book.get_absolute_url }}">{{ book.title }}</a>, {{ book.author }},
+    {{ book.price }}, {{ book.modified_at }}
+  </li>
 </ul>
 {% endfor %}
+<div class="Pagination">
+  {% if is_paginated %}
+  <div class="Pagination-ins">
+    {% if page_obj.has_previous %}
+    <a class="Pagination-element" href='?page=1'>First</a>
+    <a class="Pagination-element Pagination-element_prev" href='?page={{ page_obj.previous_page_number }}'>
+    </a>
+    {% endif %}
+    {% for num in page_obj.paginator.page_range %}
+    {% if page_obj.number == num %}
+    <a class="Pagination-element" href='?page={{ num }}'>
+      <span class="Pagination-text">{{ num }}</span>
+    </a>
+    {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+    <a class="Pagination-element" href='?page={{ num }}'>
+      <span class="Pagination-text">{{ num }}</span>
+    </a>
+    {% endif %}
+    {% endfor %}
+    {% if page_obj.has_next %}
+    <a class="Pagination-element Pagination-element_prev" href='?page={{ page_obj.next_page_number }}'>
+    </a>
+    <a class='page-link' href='?page={{ page_obj.paginator.num_pages }}'>Last</a>
+    {% endif %}
+  </div>
+  {% endif %}
+</div>
 </body>
 </html>
