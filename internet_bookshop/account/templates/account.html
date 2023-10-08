@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,5 +9,16 @@
 <body>
 
 {{ object.username }}
+<br>
+{{ object.email }}
+<br>
+{{ user_data.first_name }} {{ user_data.last_name }}
+
+{% if user_data.avatar %}
+<img src="{{ user_data.avatar.url }}" alt="img"
+     style="width:auto;height:auto;max-width:200px;max-height:200px"/>
+{% else %}
+<img src="{% static 'avatar_pic.jpg' %}" alt="img" width="200" height="200"/>
+{% endif %}
 </body>
 </html>

@@ -12,9 +12,11 @@ class ClientAdmin(admin.ModelAdmin):
 	]
 	fieldsets = (
 		('Имя клиента', {
-			'fields': ('user', 'first_name', 'last_name', 'patronymic', 'user_role', 'avatar')
+			'fields': ('user', 'first_name', 'last_name', 'patronymic', 'avatar')
 		}),
 		('Контактные данные', {
 			'fields': ('email', 'phone_number')
 		})
 	)
+
+

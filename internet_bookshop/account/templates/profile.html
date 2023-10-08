@@ -1,0 +1,40 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<form class="form-group" method="POST" enctype="multipart/form-data">
+  <label class="form-label">Аватар</label>
+  <div class="Profile-avatar Profile-avatar_noimg">
+    <div class="Profile-img">
+    </div>
+    {% csrf_token %}
+    {{ avatar_form.as_p }}
+  </div>
+  <input type="submit" value="Загрузить" name="avatar" class="btn btn_success" style="margin-top:20px">
+</form>
+<br><br><br>
+<form class="form Profile-form" method="POST">
+  {% csrf_token %}
+  {% for field in profile_form %}
+  <label class="form-label">{{field.label_tag}}</label>
+  {{field }}
+  {% endfor %}
+  <br>
+  <div class="Profile-btn">
+    <input type="submit" value="Сохранить" class="btn btn_success" name="profile">
+  </div>
+</form>
+{% for message in messages %}
+{% if message.tags == 'success' %}
+<div class="Profile-success">{{message}}</div>
+{% elif message.tags == 'error '%}
+<div class="Profile-success">{{message}}</div>
+{% endif %}
+{% endfor %}
+</body>
+</html>

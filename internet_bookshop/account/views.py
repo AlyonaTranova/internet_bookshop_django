@@ -2,12 +2,13 @@ import os
 from django.contrib.auth import login
 from django.shortcuts import render, redirect
 from django.views.generic import View, DetailView
-from .forms import RegistrationForm, ChangePasswordForm
+from .forms import RegistrationForm, ChangePasswordForm, ProfileForm, AvatarForm
 from .models import WebsiteUser
 from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.views import PasswordResetView, PasswordResetDoneView, PasswordResetConfirmView, \
 	PasswordResetCompleteView, PasswordChangeForm, PasswordChangeView, PasswordChangeDoneView
 from django_registration.forms import User
+from django.contrib import messages
 
 
 class UsersLoginView(LoginView):
@@ -72,3 +73,34 @@ class AccountDetailView(DetailView):
 		context = super(AccountDetailView, self).get_context_data(**kwargs)
 		context['user_data'] = WebsiteUser.objects.filter(user=self.object).first()
 		return context
+
+
+class ProfileView(View):
+	def get(self, request):
+		avatar_form = AvatarForm()
+		profile_form = ProfileForm()
+		return render(request, 'profile.html', context={'avatar_form': avatar_form, 'profile_form': profile_form})
+
+	def post(self, request):
+		try:
+			profile = request.user.websiteuser
+		except WebsiteUser.DoesNotExist:
+			profile = WebsiteUser(user=request.user)
+
+		avatar_form = AvatarForm(request.POST, request.FILES, instance=profile)
+		profile_form = ProfileForm(request.POST, instance=profile)
+		if 'avatar' in request.POST:
+			if avatar_form.is_valid():
+				avatar_form.save()
+				messages.success(request, 'Photo has been uploaded')
+				return redirect('profile')
+			else:
+				avatar_form = AvatarForm()
+		elif 'profile' in request.POST:
+			if profile_form.is_valid():
+				profile_form.save()
+				messages.success(request, 'Profile has been changed')
+				return redirect('profile')
+			else:
+				profile_form = ProfileForm()
+		return render(request, 'profile.html', context={'avatar_form': avatar_form, 'profile_form': profile_form})
