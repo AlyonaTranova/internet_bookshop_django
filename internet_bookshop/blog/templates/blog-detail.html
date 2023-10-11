@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+<h3>{{ post }}</h3>
+<br>
+{{ post.text }}
+<br>
+{{ tags }}
+<br>
+{% for t in post.tag.all %}
+{{ t }}
+{% endfor %}
+</body>
+</html>

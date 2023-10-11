@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+</head>
+<body>
+
+{% for tag in tags %}
+<form method="get">
+  <input type="radio" name="tag" value="{{ tag }}">{{ tag }}
+  {% endfor %}
+  <button type="submit" name="sort" value="tag_filter" class="">
+    фильтровать
+  </button>
+<ul>
+  <li><button type="submit" name="sort" value="date">Сначала старые</button></li>
+  <li><button type="submit" name="sort" value="-date">Сначала новые</button></li>
+</ul>
+</form>
+
+
+<ul>
+  {% for post in posts %}
+  <li><a href="{{ post.get_absolute_url }}">{{ post }}</a> {{post.created_at }}</li>
+  {% endfor %}
+</ul>
+</body>
+</html>

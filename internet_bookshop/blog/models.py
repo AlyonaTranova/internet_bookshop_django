@@ -1,6 +1,7 @@
 from django.utils import timezone
 from django.db import models
 from django.urls import reverse
+from django_registration.forms import User
 
 
 class Tag(models.Model):
@@ -26,4 +27,22 @@ class Post(models.Model):
 
 
 class Comment(models.Model):
-	pass
+	post_rating = [
+		(1, '1'),
+		(2, '2'),
+		(3, '3'),
+		(4, '4'),
+		(5, '5'),
+	]
+	user_id = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='user', default='')
+	post_id = models.ForeignKey(
+		Post, on_delete=models.CASCADE, verbose_name='post', default='', related_name='comments'
+	)
+	text = models.TextField(verbose_name='text', default='')
+	rating = models.IntegerField(choices=post_rating, default=1, verbose_name='rating')
+	created_at = models.DateTimeField(default=timezone.now, verbose_name='created_at')
+	modified_at = models.DateTimeField(auto_now=True, verbose_name='modified_at')
+	active = models.BooleanField(default=True)
+
+	def __str__(self):
+		return 'Comment by {} on {}'.format(self.user_id, self.post_id)
