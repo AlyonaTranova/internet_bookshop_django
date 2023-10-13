@@ -1,11 +1,8 @@
+{% extends 'base.html' %}
 {% load static %}
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-  <title>title</title>
-  <meta charset="utf-8">
-</head>
-<body>
+
+{% block content %}
+
 <div>Hello</div>
 {% for b in books %}
 <ul>
@@ -13,5 +10,5 @@
 </ul>
 {% endfor %}
 <a href="{% url 'books' %}">Каталог</a>
-</body>
-</html>
+
+{% endblock content %}

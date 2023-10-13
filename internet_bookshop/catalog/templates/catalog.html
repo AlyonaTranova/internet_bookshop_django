@@ -1,12 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Catalog</title>
-</head>
-<body>
-<!--{{ books }}-->
+{% extends 'base.html' %}
+{% load static %}
 
+{% block content %}
 <div>Сортировка</div>
 <form method="get">
 
@@ -60,5 +55,4 @@
   </div>
   {% endif %}
 </div>
-</body>
-</html>
+{% endblock content %}

@@ -1,0 +1,15 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>base</title>
+  <meta name="description" content="Описание страницы">
+</head>
+<body>
+<div style="background-color:#F8F8FF;padding-top: 30px;padding-bottom: 30px;">
+  <p style="font-size: 20px;">Welcome, {{ request.user.username }}<p>
+</div>
+{% block content %}{% endblock content %}
+</body>
+</html>
