@@ -13,7 +13,7 @@ class WebsiteUser(models.Model):
 	user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='username', default='')
 	first_name = models.CharField(verbose_name='name', max_length=100)
 	last_name = models.CharField(verbose_name='surname', max_length=100)
-	patronymic = models.CharField(verbose_name='patronimic', max_length=100, default='', blank=True)
+	patronymic = models.CharField(verbose_name='patronymic', max_length=100, default='', blank=True)
 	email = models.EmailField(verbose_name='email')
 	phone_number = models.CharField(verbose_name='phone_number', default='', max_length=20, blank=True)
 	created_at = models.DateTimeField(default=timezone.now, verbose_name='created_at')

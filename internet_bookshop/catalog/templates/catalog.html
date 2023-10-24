@@ -19,6 +19,15 @@
     фильтровать
   </button>
 </form>
+<form>
+  {% for genre in genres %}
+  <input type="radio" name="genre" value="{{ genre }}">{{ genre }}
+  {% endfor %}
+  <button type="submit" name="sort" value="genre_filter" class="btn btn_square btn_dark btn_narrow filter-btn">выбрать
+    жанр
+  </button>
+
+</form>
 
 <h2>Books:</h2>
 {% for book in books %}

@@ -13,6 +13,7 @@ from django.contrib import messages
 
 class UsersLoginView(LoginView):
 	template_name = 'login.html'
+	next_page = '/'
 
 
 class UsersLogoutView(LogoutView):
@@ -79,7 +80,9 @@ class ProfileView(View):
 	def get(self, request):
 		avatar_form = AvatarForm()
 		profile_form = ProfileForm()
-		return render(request, 'profile.html', context={'avatar_form': avatar_form, 'profile_form': profile_form})
+		return render(
+			request, 'profile.html', context={'avatar_form': avatar_form, 'form': profile_form}
+		)
 
 	def post(self, request):
 		try:
@@ -89,6 +92,9 @@ class ProfileView(View):
 
 		avatar_form = AvatarForm(request.POST, request.FILES, instance=profile)
 		profile_form = ProfileForm(request.POST, instance=profile)
+
+		user = User.objects.filter(id=request.user.id).first()
+
 		if 'avatar' in request.POST:
 			if avatar_form.is_valid():
 				avatar_form.save()
@@ -98,9 +104,17 @@ class ProfileView(View):
 				avatar_form = AvatarForm()
 		elif 'profile' in request.POST:
 			if profile_form.is_valid():
+				# 	print(profile_form.cleaned_data)
+				# 	for field in profile_form.cleaned_data:
+				# 		if profile_form.cleaned_data[field] != '':
+				# 			WebsiteUser.objects.update(field=profile_form[field])
+				#
+				# 	# WebsiteUser.objects.update(inf=inf)
 				profile_form.save()
 				messages.success(request, 'Profile has been changed')
 				return redirect('profile')
-			else:
-				profile_form = ProfileForm()
-		return render(request, 'profile.html', context={'avatar_form': avatar_form, 'profile_form': profile_form})
+		else:
+			profile_form = ProfileForm()
+		return render(
+			request, 'profile.html', context={'avatar_form': avatar_form, 'form': profile_form}
+		)

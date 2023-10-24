@@ -1,12 +1,7 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+{% block content %}
 <form class="form-group" method="POST" enctype="multipart/form-data">
   <label class="form-label">Аватар</label>
   <div class="Profile-avatar Profile-avatar_noimg">
@@ -18,17 +13,39 @@
   <input type="submit" value="Загрузить" name="avatar" class="btn btn_success" style="margin-top:20px">
 </form>
 <br><br><br>
+<h3>Change your data here</h3>
 <form class="form Profile-form" method="POST">
   {% csrf_token %}
-  {% for field in profile_form %}
-  <label class="form-label">{{field.label_tag}}</label>
-  {{field }}
-  {% endfor %}
-  <br>
-  <div class="Profile-btn">
+  {{ form.as_p }}
+<!--  <div style="margin-bottom:20px">-->
+<!--    <label class="form-label">{{ form.first_name.label }}</label>-->
+<!--    <input type="text" value="{{ user.first_name }}"/>-->
+<!--  </div>-->
+<!--  <div style="margin-bottom:20px">-->
+<!--    <label class="form-label">{{ form.last_name.label }}</label>-->
+<!--    <input type="text" value="{{ user.last_name }}"/>-->
+<!--  </div>-->
+<!--  <div style="margin-bottom:20px">-->
+<!--    <label class="form-label">{{ form.email.label }}</label>-->
+<!--    <input type="text" value="{{ user.email }}"/>-->
+<!--  </div>-->
+<!--  <div style="margin-bottom:20px">-->
+<!--    <label class="form-label">{{ form.phone_number.label }}</label>-->
+<!--    <input type="text" value="{{ user.phone_number }}"/>-->
+<!--  </div>-->
+<!--  <div style="margin-bottom:20px">-->
+<!--    <label class="form-label">{{ form.patronymic.label }}</label>-->
+<!--    <input type="text" value="{{ user.patronymic }}"/>-->
+<!--  </div>-->
+<!--  <div>-->
     <input type="submit" value="Сохранить" class="btn btn_success" name="profile">
   </div>
 </form>
+<br>
+<!--<div class="Profile-btn">-->
+<!--  <input type="submit" value="Сохранить" class="btn btn_success" name="profile">-->
+<!--</div>-->
+<!--</form>-->
 {% for message in messages %}
 {% if message.tags == 'success' %}
 <div class="Profile-success">{{message}}</div>
@@ -36,5 +53,4 @@
 <div class="Profile-success">{{message}}</div>
 {% endif %}
 {% endfor %}
-</body>
-</html>
+{% endblock content %}

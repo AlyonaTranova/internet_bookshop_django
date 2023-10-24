@@ -27,6 +27,6 @@ urlpatterns = [
 	     PasswordResetConfirmView.as_view(), name='password_reset_confirm'),
 	path('reset/done', PasswordResetCompleteView.as_view(), name='password_reset_complete'),
 
-	path('account/<int:pk>/', AccountDetailView.as_view()),
+	path('account/<int:pk>/', AccountDetailView.as_view(), name='account'),
 	path('profile/', ProfileView.as_view(), name='profile')
 ]

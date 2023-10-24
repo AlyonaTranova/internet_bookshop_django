@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
 <h3>{{ post }}</h3>
 <br>
 {{ post.text }}
@@ -14,5 +11,5 @@
 {% for t in post.tag.all %}
 {{ t }}
 {% endfor %}
-</body>
-</html>
+
+{% endblock content %}

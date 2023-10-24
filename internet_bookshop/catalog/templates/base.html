@@ -8,8 +8,14 @@
 </head>
 <body>
 <div style="background-color:#F8F8FF;padding-top: 30px;padding-bottom: 30px;">
-  <p style="font-size: 20px;">Welcome, {{ request.user.username }}<p>
+  {% if request.user.is_authenticated %}
+  <div style="font-size: 20px;">Welcome, <a href="{% url 'account' request.user.pk %}">{{ request.user.username }}</a></div><br>
+  {{ request.user.email }}
+  <a href="{% url 'logout' %}">Выйти из аккаунта</a>
+  {% else %}
+  <div><a href="{% url 'login' %}">Логин / Регистрация</a></div>
+  {% endif %}
 </div>
-{% block content %}{% endblock content %}
+  {% block content %}{% endblock content %}
 </body>
 </html>

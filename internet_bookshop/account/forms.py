@@ -72,6 +72,11 @@ class ProfileForm(forms.ModelForm):
 			'class': 'form-input'})
 		self.fields['patronymic'].widget = forms.TextInput(attrs={
 			'class': 'form-input'})
+		self.fields['email'].required = False
+		self.fields['first_name'].required = False
+		self.fields['last_name'].required = False
+		self.fields['patronymic'].required = False
+		self.fields['phone_number'].required = False
 
 
 class ChangePasswordForm(PasswordChangeForm):

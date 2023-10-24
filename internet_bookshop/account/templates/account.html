@@ -1,18 +1,14 @@
+{% extends 'base.html' %}
 {% load static %}
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Title</title>
-</head>
-<body>
-
+{% block content %}
 {{ object.username }}
 <br>
 {{ object.email }}
 <br>
-{{ user_data.first_name }} {{ user_data.last_name }}
+{{ user_data.first_name }} {{ user_data.last_name }}<br>
+{{ user_data.email }}<br>
+{{ user_data.phone_number }}<br>
 
 {% if user_data.avatar %}
 <img src="{{ user_data.avatar.url }}" alt="img"
@@ -20,5 +16,6 @@
 {% else %}
 <img src="{% static 'avatar_pic.jpg' %}" alt="img" width="200" height="200"/>
 {% endif %}
-</body>
-</html>
+<br><br>
+<div>You can change or add your data <a href="{% url 'profile' %}">here</a></div>
+{% endblock content %}
