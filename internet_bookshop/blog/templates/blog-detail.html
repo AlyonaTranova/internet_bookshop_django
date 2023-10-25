@@ -9,7 +9,23 @@
 {{ tags }}
 <br>
 {% for t in post.tag.all %}
-{{ t }}
+<ul style="margin:0;padding:0;">
+  <li style="list-style-type:none;display:inline-block"><a href="#">{{ t }}</a></li>
+</ul>
 {% endfor %}
+<br><br>
+<h4>Comments ({{ post.comments.all.count }})</h4>
+{% for comment in post.comments.all %}
 
+<div style="font-size:14px;margin-bottom:10px">{{ comment.text }}</div>
+<div style="font-size:12px">{{ comment.user_id }}, rating: {{ comment.rating }}</div>
+<br><br>
+{% endfor %}
+<form class="form" method="POST">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <div class="form-group">
+    <input class="btn btn_muted" type="submit" name="comment_button" value="Сохранить">
+  </div>
+</form>
 {% endblock content %}

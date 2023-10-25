@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.views.generic import View, DetailView, ListView
 from django.views.generic.edit import FormMixin
 from .models import Post, Comment, Tag
+from .forms import CommentForm
+from django.urls import reverse
 
 
 class PostListView(ListView):
@@ -33,8 +35,29 @@ class PostListView(ListView):
 		return context
 
 
-class PostDetailView(DetailView):
+class PostDetailView(DetailView, FormMixin):
 	model = Post
 	template_name = 'blog-detail.html'
 	slug_url_kwarg = 'slug'
 	context_object_name = 'post'
+	form_class = CommentForm
+
+	def get_success_url(self):
+		return reverse('post', kwargs={'slug': self.object.slug})
+
+	def get_context_data(self, **kwargs):
+		context = super(PostDetailView, self).get_context_data(**kwargs)
+		context['form'] = CommentForm(initial={'post_id': self.object, 'user_id': self.request.user})
+		return context
+
+	def post(self, request, *args, **kwargs):
+		self.object = self.get_object()
+		form = self.get_form()
+		if form.is_valid():
+			return self.form_valid(form)
+		else:
+			return self.form_invalid(form)
+
+	def form_valid(self, form):
+		form.save()
+		return super(PostDetailView, self).form_valid(form)
